@@ -5,20 +5,15 @@ branches:
 skip_tags: true
 image: Visual Studio 2019
 configuration: Release
-dotnet_csproj:
+assembly_info:
   patch: true
-  file: '**\*.csproj'
-  version: '{version}'
-  package_version: '{version}'
+  file: 'JetbrainsSingleJRE/JetbrainsSingleJRE.csproj'
   assembly_version: '{version}'
-  file_version: '{version}'
-  informational_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
 environment:
   github_token:
     secure: 2LiLyCv5qwnAClSid16P+Yiq+zIyBk+6/Xl1ZDOKz5g6ab2vXosiY3m93n52q1WX
-nuget:
-  account_feed: true
-  project_feed: true
 build:
   project: JetbrainsSingleJRE.sln
   verbosity: minimal
