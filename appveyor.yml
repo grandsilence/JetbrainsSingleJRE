@@ -1,0 +1,43 @@
+version: 1.0.{build}
+branches:
+  only:
+  - master
+skip_tags: true
+image: Visual Studio 2019
+configuration: Release
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+environment:
+  github_token:
+    secure: 2LiLyCv5qwnAClSid16P+Yiq+zIyBk+6/Xl1ZDOKz5g6ab2vXosiY3m93n52q1WX
+nuget:
+  account_feed: true
+  project_feed: true
+build:
+  project: JetbrainsSingleJRE.sln
+  verbosity: minimal
+artifacts:
+- path: JetbrainsSingleJRE\bin\Release
+  name: app
+deploy:
+- provider: GitHub
+  tag: v$(appveyor_build_version)
+  release: JetbrainsSingleJRE v$(appveyor_build_version)
+  auth_token:
+    secure: NQtMOO3yB309cDK/pFWRiQ==
+  artifact: app
+  on:
+    branch: master
+only_commits:
+  files:
+    - appveyor.yml
+    - JetbrainsSingleJRE.sln
+    - JetbrainsSingleJRE/JetbrainsSingleJRE.csproj
+    - JetbrainsSingleJRE/**/*.cs
+    - JetbrainsSingleJRE/**/*.resx
